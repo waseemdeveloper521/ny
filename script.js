@@ -19,10 +19,9 @@ const loveEmoji = document.getElementById('love-emoji');
 // Messages for intro screen
 const messages = [
     "Hello Hareem Fatima…",
-    "Hello Waseem…",
-    "Happy to see your friendship cross 2 beautiful years…",
+    "Happy to see our friendship cross 2 beautiful years…",
     "Now celebrating New Year 2026 together…",
-    "Wishing your friendship stays strong and forever…"
+    "Wishing our friendship stays strong and forever…"
 ];
 
 // Audio context for sound effects
