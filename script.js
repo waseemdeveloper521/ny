@@ -510,9 +510,55 @@ function showCelebration() {
     });
 }
 
+// Special message audio
+let specialMessageAudio = null;
+let isSpecialMessagePlaying = false;
+
+// Initialize special message audio
+function initSpecialMessageAudio() {
+    const playButton = document.getElementById('special-message-play');
+    const playIcon = document.getElementById('play-icon');
+    const pauseIcon = document.getElementById('pause-icon');
+    
+    if (!playButton) return;
+    
+    specialMessageAudio = new Audio('indownloader.app_audio_0019839001767164947.mp3');
+    
+    playButton.addEventListener('click', () => {
+        if (!specialMessageAudio) return;
+        
+        if (isSpecialMessagePlaying) {
+            // Pause
+            specialMessageAudio.pause();
+            isSpecialMessagePlaying = false;
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+        } else {
+            // Play
+            specialMessageAudio.play().catch(e => {
+                console.log('Audio play failed:', e);
+            });
+            isSpecialMessagePlaying = true;
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+        }
+    });
+    
+    // Update icon when audio ends
+    specialMessageAudio.addEventListener('ended', () => {
+        isSpecialMessagePlaying = false;
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+    });
+}
+
 // Show final message
 function showFinalMessage() {
     finalScreen.classList.remove('hidden');
+    // Initialize special message audio when final screen is shown
+    if (!specialMessageAudio) {
+        initSpecialMessageAudio();
+    }
 }
 
 // Generate access code based on current time
