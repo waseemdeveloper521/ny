@@ -142,22 +142,25 @@ function showCountdown() {
         const now = new Date().getTime();
         const distance = targetDate - now;
         
-        if (distance < 0) {
-            // Countdown finished
-            countdownScreen.classList.add('hidden');
-            showCelebration();
-            return;
-        }
-        
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
         const daysEl = document.getElementById('days');
         const hoursEl = document.getElementById('hours');
         const minutesEl = document.getElementById('minutes');
         const secondsEl = document.getElementById('seconds');
+        
+        let days, hours, minutes, seconds;
+        
+        if (distance < 0) {
+            // Time has passed New Year - show all zeros
+            days = 0;
+            hours = 0;
+            minutes = 0;
+            seconds = 0;
+        } else {
+            days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        }
         
         // Add flip animation when numbers change
         if (daysEl.textContent !== String(days).padStart(2, '0')) {
